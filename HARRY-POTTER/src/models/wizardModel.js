@@ -25,9 +25,9 @@ const createWizard = async (name, house_id) => {
     return result.rows[0];
 };
 
-const updateWizard = async (name, house_id) => {
+const updateWizard = async (id, name, house_id) => {
     const result = await pool.query(
-        "UPDATE wizards SET name = $1, house_id = $2 WHERE id = $3 RETURNING *", [name, house_id]);
+        "UPDATE wizards SET name = $1, house_id = $2 WHERE id = $3 RETURNING *", [name, house_id, id]);
     if (result.rowCount === 0) {
         return { error: "Bruxo não encontrado." };
     }

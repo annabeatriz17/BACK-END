@@ -34,13 +34,13 @@ const createWizard = async (req, res) => {
 const updateWizard = async (req, res) => {
     try {
         const { name, house_id } = req.body;
-        const updatedWizard = await wizardModel.updateWizard(name, house_id);
+        const updatedWizard = await wizardModel.updateWizard( req.params.id, name, house_id);
         if (!updatedWizard) {
             res.status(404).json({ message: "Bruxo não encontrado." });
         }
         res.json(updatedWizard);
     } catch (error) {
-        res.status(500).json({ message: "Erro ao atualizar bruxo." });
+        res.status(500).json({ message: "Erro ao atualizar Bruxo." });
     }
 };
 
