@@ -10,6 +10,27 @@ const getHouseById = async (id) => {
     return result.rows[0];
 };
 
-//DEPOIS FINALIZAR OS DEMAIS CRUDS
+const createHouse = async (name, founder) => {
+    const result = await pool.query("INSERT INTO houses (name, founder) VALUES ($1, $2) RETURNING *",[name, founder]);
+    return result.rows[0];
+};
 
-module.exports = { getHouses, getHouseById };
+const updateHouse = async (id, name, founder) => {
+    const result = await pool.query("UPDATE houses SET name = $1, founder = $2 WHERE id = $3 RETURNING *", [name, founder, id]
+    );
+    if (result.rowCount === 0) {
+        return { error: "Casa não encontrada." };
+    }
+    return result.rows[0];
+};
+
+const deleteHouse = async (id) => {
+    const result = await pool.query("DELETE FROM houses WHERE id = $1 RETURNING *", [id]
+    );
+    if (result.rowCount === 0) {
+        return { error: "Não foi possível deletar a casa." };
+    }
+    return { message: "Casa deletada com sucesso." };
+};
+
+module.exports = { getHouses, getHouseById, createHouse, updateHouse, deleteHouse };
