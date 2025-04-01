@@ -21,10 +21,25 @@ const getWizardById = async (id) => {
 
 const createWizard = async (name, house_id) => {
     const result = await pool.query(
-        "INSERT INTO wizards (name, house_id) VALUES ($1, $2) RETURNING *",
-        [name, house_id]
-    );
+        "INSERT INTO wizards (name, house_id) VALUES ($1, $2) RETURNING *", [name, house_id]);
     return result.rows[0];
 };
 
-module.exports = { getWizards, getWizardById, createWizard };
+const updateWizard = async (name, house_id) => {
+    const result = await pool.query(
+        "UPDATE wizards SET name = $1, house_id = $2 WHERE id = $3 RETURNING *", [name, house_id]);
+    if (result.rowCount === 0) {
+        return { error: "Bruxo não encontrado." };
+    }
+    return result.rows[0];
+};
+
+const deleteWizard = async (id) => {
+    const result = await pool.query("DELETE FROM wizards WHERE id = $1 RETURNING *", [id]);
+    if (result.rowCount === 0) {
+        return { error: "Não foi possível deletar o bruxo." };
+    }
+    return { message: "Bruxo deletado com sucesso." };
+};
+
+module.exports = { getWizards, getWizardById, createWizard, updateWizard, deleteWizard };
