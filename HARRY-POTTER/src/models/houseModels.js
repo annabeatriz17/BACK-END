@@ -10,4 +10,6 @@ const getHouseById = async (id) => {
     return result.rows[0];
 };
 
+//DEPOIS FINALIZAR OS DEMAIS CRUDS
+
 module.exports = { getHouses, getHouseById };
