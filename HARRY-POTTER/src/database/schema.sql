@@ -1,6 +1,6 @@
-CREATEDATABASE harrypotter;
+CREATE DATABASE hp;
 
-/c harrypotter;
+\c hp;
 
 CREATE TABLE houses (
     id SERIAL PRIMARY KEY,
