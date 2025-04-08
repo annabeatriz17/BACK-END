@@ -1,7 +1,7 @@
 const { format } = require("@fast-csv/format");
+const PDFDocument = require("pdfkit")
 
 const wizardModel = require("../models/wizardModel");
-const PDFDocument = require("pdfkit");
 
 const exportWizardCSV = async (req, res) => {
     try {
