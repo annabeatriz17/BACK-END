@@ -2,7 +2,7 @@ const pool = require("../config/database");
 
 const getWizards = async (name) => {
 
-    if (name) {
+    if (!name) {
         const result = await pool.query(
             `SELECT wizards.*, houses.name AS house_name 
             FROM wizards 
