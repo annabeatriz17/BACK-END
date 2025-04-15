@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const wizardController = require("../controllers/wizardController");
+const upload = require("../config/upload.js"); // crie a pasta middleware e o arquivo upload.js
 
 /**
  * @swagger
@@ -49,7 +50,9 @@ router.get("/wizards", wizardController.getAllWizards);
  */
 router.get("/wizards/:id", wizardController.getWizard);
 
-router.post("/wizards", wizardController.createWizard);
+//Criar Bruxo
+router.post("/wizards", upload.single("photo"), wizardController.createWizard);
+
 
 /**
  * @swagger
